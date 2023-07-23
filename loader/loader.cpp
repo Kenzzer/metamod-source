@@ -92,6 +92,8 @@ static const char *backend_names[] =
 	"2.bms",
 	"2.doi",
 	"2.mock",
+	"2.pvkii",
+	"2.mcv"
 };
 
 #if defined _WIN32
@@ -329,6 +331,11 @@ mm_DetermineBackend(QueryValveInterface engineFactory, QueryValveInterface serve
 		{
 			return MMBackend_Blade;
 		}
+
+		if (mm_FindPattern((void *)engineFactory, "Military Conflict: Vietnam", sizeof("Military Conflict: Vietnam") - 1))
+		{
+			return MMBackend_MCV;
+		}
 		
 		return MMBackend_CSGO;
 	}
@@ -425,6 +432,10 @@ mm_DetermineBackend(QueryValveInterface engineFactory, QueryValveInterface serve
 					else if (strcmp(game_name, "hl2mp") == 0)
 					{
 						return MMBackend_HL2DM;
+					}
+					else if (strcmp(game_name, "pvkii") == 0)
+					{
+						return MMBackend_PVKII;
 					}
 					else if (strcmp(game_name, ".") == 0 && engineFactory("MOCK_ENGINE", NULL))
 					{
