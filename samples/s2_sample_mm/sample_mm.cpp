@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include "sample_mm.h"
 #include "iserver.h"
+#include <sstream>
 
 SH_DECL_HOOK3_void(IServerGameDLL, GameFrame, SH_NOATTRIB, 0, bool, bool, bool);
 SH_DECL_HOOK4_void(IServerGameClients, ClientActive, SH_NOATTRIB, 0, CPlayerSlot, bool, const char *, uint64);
@@ -88,6 +89,10 @@ bool SamplePlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, 
 
 	g_pCVar = icvar;
 	ConVar_Register( FCVAR_RELEASE | FCVAR_CLIENT_CAN_EXECUTE | FCVAR_GAMEDLL );
+
+	std::ostringstream ss;
+	ss << "f" << 1;
+	META_CONPRINTF( "%s\n", ss.str().c_str() );
 
 	return true;
 }
